@@ -12,6 +12,7 @@ export default function Navbar({ onOpenConsultation }) {
     { label: 'INÍCIO', href: '#inicio' },
     { label: 'SERVIÇOS', href: '#servicos' },
     { label: 'METODOLOGIA', href: '#metodologia' },
+    { label: 'SOBRE NÓS', href: '#sobre' },
     { label: 'CONTATO', href: '#contato' },
   ]
 

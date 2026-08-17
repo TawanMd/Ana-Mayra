@@ -5,6 +5,7 @@ import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import ServicesBento from './components/ServicesBento'
 import Methodology from './components/Methodology'
+import AboutPersona from './components/AboutPersona'
 import Footer from './components/Footer'
 import ConsultationModal from './components/ConsultationModal'
 
@@ -46,6 +47,11 @@ export default function App() {
 
           {/* Methodology Framework */}
           <Methodology />
+
+          {/* About Persona & Credentials */}
+          <AboutPersona 
+            onOpenConsultation={() => setIsConsultationModalOpen(true)}
+          />
         </main>
 
         {/* Footer */}

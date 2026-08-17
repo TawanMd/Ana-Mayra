@@ -1,7 +1,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import { BrandLockup } from './LogoMonogram'
-import { Phone, Mail, Globe, MapPin, ArrowUp, MessageCircle } from 'lucide-react'
+import { Phone, Mail, Globe, MapPin, ArrowUp, MessageCircle, FileText } from 'lucide-react'
 
 export default function Footer({ onOpenConsultation }) {
   const scrollToTop = () => {
@@ -22,10 +22,10 @@ export default function Footer({ onOpenConsultation }) {
               // PRONTO PARA ESCALAR?
             </span>
             <h3 className="text-2xl sm:text-3xl font-extrabold text-white mt-2 tracking-tight">
-              Transforme a performance comercial da sua empresa hoje.
+              Transforme a performance comercial da sua empresa.
             </h3>
             <p className="text-sm text-neutral-400 mt-2">
-              Converse diretamente com nossa equipe e receba um direcionamento estratégico personalizado.
+              Converse diretamente com a liderança estratégica e receba um diagnóstico personalizado para sua operação.
             </p>
           </div>
 
@@ -34,10 +34,10 @@ export default function Footer({ onOpenConsultation }) {
               onClick={onOpenConsultation}
               className="px-8 py-4 rounded-xl bg-white text-black font-bold text-xs uppercase tracking-wider hover:bg-neutral-100 transition-colors shadow-lg text-center"
             >
-              FALAR COM UM ESPECIALISTA
+              SOLICITAR CONSULTORIA
             </button>
             <a
-              href="https://wa.me/551996336668"
+              href="https://wa.me/5548991444114"
               target="_blank"
               rel="noopener noreferrer"
               className="px-6 py-4 rounded-xl border border-neutral-700 bg-neutral-800/80 hover:bg-neutral-800 text-white font-semibold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-colors"
@@ -55,10 +55,10 @@ export default function Footer({ onOpenConsultation }) {
           <div className="lg:col-span-5 space-y-4">
             <BrandLockup variant="dark" size="md" onClick={scrollToTop} />
             <p className="text-sm text-neutral-400 max-w-sm leading-relaxed pt-2">
-              Assessoria e consultoria comercial estratégica focada em estruturação de processos de vendas, capacitação de equipes e crescimento sustentável de receita.
+              Assessoria e consultoria comercial estratégica focada em estruturação de processos de vendas, qualificação de leads, capacitação e inteligência de dados.
             </p>
             <div className="text-xs font-mono text-neutral-500 pt-2">
-              CNPJ: Estrutura Comercial Registrada • Atendimento Nacional
+              Ana Mayra Vigânigo • Atendimento SC e Nacional
             </div>
           </div>
 
@@ -78,12 +78,12 @@ export default function Footer({ onOpenConsultation }) {
                 <a href="#metodologia" className="hover:text-white transition-colors">Metodologia 360°</a>
               </li>
               <li>
-                <a href="#contato" className="hover:text-white transition-colors">Canais de Contato</a>
+                <a href="#sobre" className="hover:text-white transition-colors">Sobre a Consultora</a>
               </li>
               <li>
-                <button onClick={onOpenConsultation} className="hover:text-white transition-colors text-left">
-                  Solicitar Diagnóstico
-                </button>
+                <a href="/assets/viganigomartinsanamayra.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors flex items-center gap-1">
+                  <span>Currículo Executivo (PDF)</span>
+                </a>
               </li>
             </ul>
           </div>
@@ -91,24 +91,24 @@ export default function Footer({ onOpenConsultation }) {
           {/* Col 3: Contato & Canais */}
           <div className="lg:col-span-4 space-y-3">
             <h4 className="text-xs font-mono uppercase tracking-widest text-neutral-400 mb-4">
-              Canais de Atendimento
+              Canais Diretos
             </h4>
             <ul className="space-y-3 text-sm text-neutral-300">
               <li className="flex items-center gap-3">
                 <Phone className="w-4 h-4 text-neutral-400 shrink-0" />
-                <span>(19) 9633-6668 / (10) 9994-5578</span>
+                <a href="https://wa.me/5548991444114" target="_blank" rel="noopener noreferrer" className="hover:underline">
+                  (48) 99144-4114
+                </a>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="w-4 h-4 text-neutral-400 shrink-0" />
-                <span>contato@anamayra.com.br</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <Globe className="w-4 h-4 text-neutral-400 shrink-0" />
-                <span>www.anamayra.com.br</span>
+                <a href="mailto:mayviganigomartins@gmail.com" className="hover:underline">
+                  mayviganigomartins@gmail.com
+                </a>
               </li>
               <li className="flex items-center gap-3">
                 <MapPin className="w-4 h-4 text-neutral-400 shrink-0" />
-                <span>São Paulo / SP • Atendimento Remoto & Presencial</span>
+                <span>Florianópolis, SC • Atendimento Presencial & Remoto</span>
               </li>
             </ul>
           </div>
@@ -118,7 +118,7 @@ export default function Footer({ onOpenConsultation }) {
         {/* Bottom Bar */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-neutral-500">
           <div>
-            © {new Date().getFullYear()} ANA MAYRA Assessoria & Consultoria Comercial. Todos os direitos reservados.
+            © {new Date().getFullYear()} ANA MAYRA Vigânigo • Assessoria & Consultoria Comercial.
           </div>
           
           <button
