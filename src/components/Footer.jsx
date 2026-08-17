@@ -115,15 +115,20 @@ export default function Footer({ onOpenConsultation }) {
 
         </div>
 
-        {/* Bottom Bar */}
+        {/* Bottom Bar with Versioning */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-neutral-500">
-          <div>
-            © {new Date().getFullYear()} ANA MAYRA Vigânigo • Assessoria & Consultoria Comercial.
+          <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-center sm:text-left">
+            <span>© {new Date().getFullYear()} ANA MAYRA Vigânigo • Assessoria & Consultoria Comercial.</span>
+            <span className="hidden sm:inline text-neutral-700">|</span>
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-neutral-900 border border-neutral-800 text-[10px] font-mono text-neutral-400">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span>v1.2.0 (Build 2026.08)</span>
+            </div>
           </div>
           
           <button
             onClick={scrollToTop}
-            className="flex items-center gap-1.5 text-neutral-400 hover:text-white transition-colors group"
+            className="flex items-center gap-1.5 text-neutral-400 hover:text-white transition-colors group text-xs"
           >
             <span>Voltar ao topo</span>
             <ArrowUp className="w-3.5 h-3.5 group-hover:-translate-y-1 transition-transform" />
