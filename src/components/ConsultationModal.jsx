@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, CheckCircle2, ArrowRight, ShieldCheck, Sparkles, Building, Phone, Mail, User } from 'lucide-react'
+import { X, CheckCircle2, ArrowRight, ShieldCheck, Sparkles, Building, Phone, Mail, User, MessageCircle } from 'lucide-react'
 import confetti from 'canvas-confetti'
 
 export default function ConsultationModal({ isOpen, onClose }) {
-  const [step, setStep] = useState(1)
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -16,6 +15,7 @@ export default function ConsultationModal({ isOpen, onClose }) {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [whatsappUrl, setWhatsappUrl] = useState('')
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -26,10 +26,8 @@ export default function ConsultationModal({ isOpen, onClose }) {
       window.addEventListener('keydown', handleKeyDown)
     } else {
       document.body.style.overflow = 'unset'
-      // Reset state on close
       setTimeout(() => {
         setIsSubmitted(false)
-        setStep(1)
       }, 300)
     }
     return () => {
@@ -42,10 +40,16 @@ export default function ConsultationModal({ isOpen, onClose }) {
     e.preventDefault()
     setIsSubmitting(true)
 
-    // Simulate instant API response
+    // Formatar mensagem completa para o WhatsApp da Ana Mayra
+    const messageText = `*Solicitação de Diagnóstico Comercial - Ana Mayra*\n\n👤 *Nome:* ${formData.name}\n🏢 *Empresa:* ${formData.company}\n📧 *E-mail:* ${formData.email}\n📱 *WhatsApp:* ${formData.phone}\n👥 *Time Comercial:* ${formData.teamSize}\n🎯 *Objetivo Principal:* ${formData.challenge}\n\nOlá Ana Mayra, acabei de solicitar um diagnóstico comercial pelo site e gostaria de agendar uma reunião estratégica para avaliarmos nossa operação.`
+    
+    const targetUrl = `https://wa.me/5548991444114?text=${encodeURIComponent(messageText)}`
+    setWhatsappUrl(targetUrl)
+
     setTimeout(() => {
       setIsSubmitting(false)
       setIsSubmitted(true)
+      
       try {
         confetti({
           particleCount: 100,
@@ -53,9 +57,12 @@ export default function ConsultationModal({ isOpen, onClose }) {
           origin: { y: 0.6 }
         })
       } catch (err) {
-        // Confetti fallback
+        // Fallback
       }
-    }, 900)
+
+      // Redireciona diretamente para o WhatsApp
+      window.open(targetUrl, '_blank')
+    }, 700)
   }
 
   if (!isOpen) return null
@@ -109,26 +116,38 @@ export default function ConsultationModal({ isOpen, onClose }) {
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="text-center py-8"
+                className="text-center py-6"
               >
                 <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto mb-4">
                   <CheckCircle2 className="w-8 h-8" />
                 </div>
                 <h4 className="text-2xl font-bold text-black mb-2">
-                  Solicitação Recebida com Sucesso!
+                  Solicitação Pronta para Envio!
                 </h4>
                 <p className="text-sm text-neutral-600 max-w-md mx-auto mb-6">
-                  Nossa equipe de liderança comercial entrará em contato via WhatsApp/E-mail nas próximas horas para agendar sua sessão diagnóstica.
+                  Seus dados foram organizados e o WhatsApp de <strong>Ana Mayra</strong> foi aberto em uma nova aba para agendamento direto.
                 </p>
-                <div className="p-4 rounded-xl bg-neutral-50 border border-neutral-200 text-xs text-neutral-600 max-w-md mx-auto mb-6">
-                  <strong>Próximo passo:</strong> Realizaremos uma pré-avaliação do seu segmento de mercado antes da reunião executiva.
+
+                <div className="space-y-3 max-w-md mx-auto mb-4">
+                  {whatsappUrl && (
+                    <a
+                      href={whatsappUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full btn-primary rounded-xl py-3.5 text-xs uppercase tracking-wider font-bold shadow-md flex items-center justify-center gap-2"
+                    >
+                      <MessageCircle className="w-4 h-4 text-emerald-400" />
+                      <span>Abrir WhatsApp Novamente</span>
+                    </a>
+                  )}
+
+                  <button
+                    onClick={onClose}
+                    className="w-full py-2.5 rounded-xl border border-neutral-300 bg-white hover:bg-neutral-100 text-xs font-bold uppercase tracking-wider text-neutral-700 transition-colors"
+                  >
+                    Fechar Janela
+                  </button>
                 </div>
-                <button
-                  onClick={onClose}
-                  className="btn-primary rounded-xl px-8 py-3 text-xs uppercase tracking-wider font-bold"
-                >
-                  Concluir
-                </button>
               </motion.div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
@@ -179,7 +198,7 @@ export default function ConsultationModal({ isOpen, onClose }) {
                       <input
                         type="tel"
                         required
-                        placeholder="(11) 99999-9999"
+                        placeholder="(48) 99999-9999"
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                         className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-neutral-300 text-sm focus:outline-none focus:border-black transition-colors"
@@ -196,7 +215,7 @@ export default function ConsultationModal({ isOpen, onClose }) {
                       <input
                         type="text"
                         required
-                        placeholder="Nome da sua empresa"
+                        placeholder="Ex: Grupo ND / Jornal ND"
                         value={formData.company}
                         onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                         className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-neutral-300 text-sm focus:outline-none focus:border-black transition-colors"
@@ -231,11 +250,11 @@ export default function ConsultationModal({ isOpen, onClose }) {
                       onChange={(e) => setFormData({ ...formData, challenge: e.target.value })}
                       className="w-full px-3.5 py-2.5 rounded-xl border border-neutral-300 text-sm focus:outline-none focus:border-black bg-white transition-colors"
                     >
-                      <option value="Estratégia de Vendas">Estratégia de Vendas & Metas</option>
-                      <option value="Gestão de Leads & CRM">Gestão de Leads & Funil</option>
-                      <option value="Treinamento Comercial">Treinamento de Equipe & Playbook</option>
-                      <option value="Análise de Mercado">Análise de Mercado & Posicionamento</option>
-                      <option value="Consultoria Integral">Consultoria Integral 360°</option>
+                      <option value="Estratégia de Vendas & Metas">Estratégia de Vendas & Metas</option>
+                      <option value="Gestão de Leads & CRM">Gestão de Leads & CRM</option>
+                      <option value="Treinamento Comercial & Playbook">Treinamento Comercial & Playbook</option>
+                      <option value="Análise de Mercado & Posicionamento">Análise de Mercado & Posicionamento</option>
+                      <option value="Consultoria Integral 360°">Consultoria Integral 360°</option>
                     </select>
                   </div>
                 </div>
@@ -249,12 +268,13 @@ export default function ConsultationModal({ isOpen, onClose }) {
                     {isSubmitting ? (
                       <span className="flex items-center gap-2">
                         <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                        Processando...
+                        Preparando WhatsApp...
                       </span>
                     ) : (
                       <>
-                        <span>ENVIAR E AGENDAR DIAGNÓSTICO</span>
-                        <ArrowRight className="w-4 h-4" />
+                        <MessageCircle className="w-4 h-4 text-emerald-400" />
+                        <span>AGENDAR VIA WHATSAPP</span>
+                        <ArrowRight className="w-4 h-4 ml-1" />
                       </>
                     )}
                   </button>
@@ -262,7 +282,7 @@ export default function ConsultationModal({ isOpen, onClose }) {
 
                 <div className="flex items-center justify-center gap-2 text-[11px] text-neutral-500 pt-2">
                   <ShieldCheck className="w-4 h-4 text-neutral-400" />
-                  <span>Seus dados estão protegidos com total confidencialidade executiva.</span>
+                  <span>Seus dados são transmitidos com total sigilo executivo.</span>
                 </div>
 
               </form>
